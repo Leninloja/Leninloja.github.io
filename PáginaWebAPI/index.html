@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaflix API</title>
+    <style>
+section {
+    padding: 2rem 9%;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgb(55, 55, 55);
+    padding: 1rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+header #logo {
+    font-size: 3rem;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+}
+
+header #logo span {
+    color: rgb(255, 0, 0);
+}
+
+header .navB a {
+    font-size: 2rem;
+    padding: 0 1.5rem;
+    color: rgb(8, 8, 8);
+}
+
+header .navB a:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.652);
+    border-radius: 20px;
+
+}
+
+#inicioT {
+    background-color: rgba(0, 0, 0, 0.615);
+    color: rgb(255, 251, 251);
+    border-radius: 20px;
+}
+
+header .iconos a {
+    font-size: 2.5rem;
+    color: #333;
+    margin-left: 1.5rem;
+}
+
+
+
+.inicio {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    background: url(1.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.inicio .contenedor {
+    max-width: 50rem;
+}
+
+.inicio .contenedor span {
+    font-size: 3rem;
+    color: rgb(255, 0, 0);
+    padding: 1rem 0;
+    line-height: 1.5;
+    font-family: 'Poppins', sans-serif;
+    font-weight:700;
+    border-radius: 10px;
+    padding-right: 55%;
+}
+
+.inicio .contenedor p {
+    font-size: 1.3rem;
+    color: rgb(255, 255, 255);
+    padding: 1rem 0;
+    line-height: 1.5;
+}
+
+* {
+    text-decoration: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+    
+	font-family: 'Poppins', sans-serif;
+	background: rgba(0, 0, 0);
+	color: #ffffff;
+}
+
+.cont1 {
+	width: 90%;
+	max-width: 1000px;
+	margin: 40px auto 100px auto;
+
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 40px;
+}
+
+.cont1 .pelicula {
+	text-align: center;
+}
+
+.cont1 .pelicula .titulo {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.cont1 .pelicula .poster {
+	width: 100%;
+	margin-bottom: 10px;
+	border-radius: 15px;
+}
+
+footer {
+    background-color: #635f5f5a;
+    padding-left: 45%;
+    padding-bottom: 5%;
+}
+
+#tip {
+    font-size: 2rem;
+    color: red;
+    margin-bottom: 4%;
+}
+
+.fa1 {
+    margin-left: -14%;
+    color: rgb(255, 255, 255);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.fa3 {
+    color: rgb(255, 255, 255);
+    margin-left: 2%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.fa4 {
+    color: rgb(255, 255, 255);
+    margin-left: 2%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" id="logo">Cha<span>flix</span></a>
+    <nav class="navB">
+        <a href="#i" id="inicioT">Inicio</a>
+        <a href="1.html">Pelis</a>
+        <a href="#inf">Compras  </a>
+        <a href="https://www.themoviedb.org/">Contacto</a>
+    </nav> 
+    </header>
+    <section class="inicio" id="inicio">
+        <div class="contenedor">
+            <span>Peliculas de netflix  pero más accesibles</span>
+            <p>Todo el catálogo de netflix pero mucho más varato, <br> si no le gusta la calidad de las peliculas, <br>
+            no es nuestro problema, porque "a caballo regalado no se le mira los dientes." </p>
+        </div>
+    </section>
+    <div class="cont1" id="cont1"></div>
+
+    <script>
+    let pagina = 1;
+const cargarPeliculas = async() => {
+	try {
+		const resp = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-EC&page=');
+
+		if(resp.status === 200){
+			const datos = await resp.json();
+			
+			let peliculas = '';
+			datos.results.forEach(pelicula => {
+				peliculas += `
+				<div class="pelicula">
+						<img class="poster" src="https://image.tmdb.org/t/p/w500/${pelicula.poster_path}">
+						<h3 class="titulo">${pelicula.title}</h3>
+				</div>`;
+			});
+        document.getElementById('cont1').innerHTML = peliculas;
+
+		} else if(respuesta.status === 401){
+			console.log('tus dados son incorrectos... no te sientas mal a todos nos pasa.');
+		} else if(respuesta.status === 404){
+			console.log('Amigo, no existe esa película');
+		} else {
+			console.log('Algo salió mal');
+		}
+
+	} catch(error){
+		console.log(error);
+	}
+
+}
+cargarPeliculas();
+    </script>
+
+<footer>
+    <div class="cajaC">
+        <div class="caja">
+            <h3 id="tip">Pie de página</h3>
+            <a class="fa1" href="https://www.themoviedb.org/documentation/api">API</a>
+            <a class="fa3" href="https://www.themoviedb.org/documentation/api">Información</a>
+            <a class="fa4" href="#">tareadeapi@deber.10</a>
+        </div>
+</footer>
+</body>
+</html>

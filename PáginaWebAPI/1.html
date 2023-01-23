@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaflix</title>
+    <style>
+        * {
+    text-decoration: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+    
+	font-family: 'Poppins', sans-serif;
+	background: rgba(0, 0, 0);
+	color: #ffffff;
+}
+
+.cont1 {
+	width: 90%;
+	max-width: 1000px;
+	margin: 40px auto 100px auto;
+
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 40px;
+}
+
+.cont1 .pelicula {
+	text-align: center;
+}
+
+.cont1 .pelicula .titulo {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.cont1 .pelicula .poster {
+	width: 100%;
+	margin-bottom: 10px;
+	border-radius: 15px;
+}
+
+#botonN {
+    background-color: #fc0101;
+    margin-left: 47%;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 1%;
+    color: rgb(255, 255, 255);
+}
+    </style>
+</head>
+<body>
+    <a id="botonN" href="index.html">Volver</a>
+    <div class="cont1" id="cont1"></div>
+
+    <script>
+    let pagina = 1;
+const cargarPeliculas = async() => {
+	try {
+		const resp = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-EC&page=');
+
+		if(resp.status === 200){
+			const datos = await resp.json();
+			
+			let peliculas = '';
+			datos.results.forEach(pelicula => {
+				peliculas += `
+				<div class="pelicula">
+						<img class="poster" src="https://image.tmdb.org/t/p/w500/${pelicula.poster_path}">
+						<h3 class="titulo">${pelicula.title}</h3>
+				</div>`;
+			});
+        document.getElementById('cont1').innerHTML = peliculas;
+
+		} else if(respuesta.status === 401){
+			console.log('tus dados son incorrectos... no te sientas mal a todos nos pasa.');
+		} else if(respuesta.status === 404){
+			console.log('Amigo, no existe esa película');
+		} else {
+			console.log('Algo salió mal');
+		}
+
+	} catch(error){
+		console.log(error);
+	}
+
+}
+cargarPeliculas();
+    </script>
+</body>
+</html>
