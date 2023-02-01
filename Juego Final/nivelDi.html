@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #FCCB8D;
+    margin-left: 27%;
+}
+
+
+#controles {
+    margin-left: 34%;
+}
+
+
+#bu {
+    position:absolute;
+    background: none;
+    top: 40%;
+    right: 40%;
+    border: none;
+}
+
+#bu1 {
+    position:absolute;
+    background: none;
+    top: 63%;
+    right: 43.5%;
+    border: none;
+}
+
+#bu2 {
+    position:absolute;
+    background: none;
+    top: 46%;
+    right: 50.5%;
+    border: none;
+}
+
+#bu3 {
+    position:absolute;
+    background: none;
+    top: 46%;
+    right: 57.5%;
+    border: none;
+}
+
+#bu4 {
+    position:absolute;
+    background: none;
+    top: 33%;
+    right: 62.5%;
+    border: none;
+}
+
+#bu5 {
+    position:absolute;
+    background: none;
+    top: 37%;
+    right: 38%;
+    border: none;
+}
+
+#bu6 {
+    position:absolute;
+    background: none;
+    top: 54%;
+    right: 38%;
+    border: none;
+}
+
+#bu7 {
+    position:absolute;
+    background: none;
+    top: 20.5%;
+    right: 36.5%;
+    border: none;
+}
+
+#bu8 {
+    position:absolute;
+    background: none;
+    top: 30%;
+    right: 31.5%;
+    border: none;
+}
+
+#bu9 {
+    position:absolute;
+    background: none;
+    top: 45%;
+    right:32.5%;
+    border: none;
+}
+
+#bu10 {
+    position:absolute;
+    background: none;
+    top: 53%;
+    right: 64%;
+    border: none;
+}
+
+#perder {
+    position:absolute;
+    background: none;
+    top: 57%;
+    right: 47%;
+    border: none;
+}
+
+#img1 {
+    position:absolute;
+    background: none;
+    top: 57%;
+    right: 40%;
+    border: none;
+}
+
+#img2 {
+    position:absolute;
+    background: none;
+    top: 40%;
+    right: 47%;
+    border: none;
+}
+
+#img3 {
+    position:absolute;
+    background: none;
+    top: 40%;
+    right: 54%;
+    border: none;
+}
+
+#img4 {
+    position:absolute;
+    background: none;
+    top: 27%;
+    right: 59%;
+    border: none;
+}
+
+#img5 {
+    position:absolute;
+    background: none;
+    top: 31%;
+    right: 34.5%;
+    border: none;
+}
+
+#img6 {
+    position:absolute;
+    background: none;
+    top: 48%;
+    right: 34.5%;
+    border: none;
+}
+
+#img7 {
+    position:absolute;
+    background: none;
+    top: 14.5%;
+    right: 33%;
+    border: none;
+}
+
+#img8 {
+    position:absolute;
+    background: none;
+    top: 24%;
+    right: 28%;
+    border: none;
+}
+
+#img9 {
+    position:absolute;
+    background: none;
+    top: 39%;
+    right:29%;
+    border: none;
+}
+
+#img10 {
+    position:absolute;
+    background: none;
+    top: 47%;
+    right: 60.5%;
+    border: none;
+}
+
+#inicio {
+    position:absolute;
+    margin-top: -38.1%;
+    margin-left: 26.8%;
+}
+
+#bi {
+    position: absolute;
+    background: none;
+    border: none;
+    top: 85%;
+    left: 30%;
+}
+
+#ganar {
+    display: none;
+    position:absolute;
+    margin-top: -38.1%;
+    margin-left: 26.8%;
+}
+
+#perderf {
+    display: none;
+    position:absolute;
+    margin-top: -38.1%;
+    margin-left: 26.8%;
+}
+
+.ifondo {
+    background: url('botonesf.png') center;
+}
+
+#scoreC {
+    margin-left: 79%;
+    margin-top: -4%;
+    text-align: center;
+    font-size: 80%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#scoreF {
+    position: absolute;
+    padding-left: 26.8%;
+    
+}
+</style>
+</head>
+<body onclick="PlayAudio()" onload="startGame()">
+<img id="img1" src="tree.png" alt="">
+<img id="img2" src="tree.png" alt="">
+<img id="img3" src="tree.png" alt="">
+<img id="img4" src="tree.png" alt="">
+<img id="img5" src="tree.png" alt="">
+<img id="img6" src="tree.png" alt="">
+<img id="img7" src="tree.png" alt="">
+<img id="img8" src="tree.png" alt="">
+<img id="img9" src="tree.png" alt="">
+<img id="img10" src="tree.png" alt="">
+<button id="bu" type="button" onclick="ganar();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')"><img src="tree.png" alt=""></button>
+<button id="bu1" type="button" onclick="ocultar1();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu2" type="button" onclick="ocultar2();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu3" type="button" onclick="ocultar3();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu4" type="button" onclick="ocultar4();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu5" type="button" onclick="ocultar5();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu6" type="button" onclick="ocultar6();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu7" type="button" onclick="ocultar7();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu8" type="button" onclick="ocultar8();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu9" type="button" onclick="ocultar9();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu10" type="button" onclick="ocultar10();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>       
+<button id="perder" type="button" onclick="perder();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')"><img src="tree.png" alt=""></button>
+<div id="inicio"><button id="bi" type="button" onclick="empezar()">.......................................................................... <br><br>........................................................ </button>
+    <img src="inicio.png" alt="">
+</div>
+<div id="ganar">
+    <a href="creditos.html"><img src="ganar.png" alt=""></a>
+</div>
+
+<div id="perderf">
+    <a href="niveles.html" ><img src="perder.png" alt=""></a>
+</div>
+<audio id="mu1" autoplay loop>
+    <source src="nivel3.mp3" type="audio/mpeg">
+</audio>
+<script>
+
+function PlayAudio() {
+    document.getElementById('mu1').play();
+}
+
+function ocultar1(){
+    document.getElementById('img1').style.display = 'none';
+}
+
+function ocultar2(){
+    document.getElementById('img2').style.display = 'none';
+}
+
+function ocultar3(){
+    document.getElementById('img3').style.display = 'none';
+}
+
+function ocultar4(){
+    document.getElementById('img4').style.display = 'none';
+}
+
+function ocultar5(){
+    document.getElementById('img5').style.display = 'none';
+}
+
+function ocultar6(){
+    document.getElementById('img6').style.display = 'none';
+}
+
+function ocultar7(){
+    document.getElementById('img7').style.display = 'none';
+}
+
+function ocultar8(){
+    document.getElementById('img8').style.display = 'none';
+}
+
+function ocultar9(){
+    document.getElementById('img9').style.display = 'none';
+}
+
+function ocultar10(){
+    document.getElementById('img10').style.display = 'none';
+}
+
+function empezar() {
+    document.getElementById('inicio').style.display = 'none';
+}
+
+function ganar() {
+    document.getElementById('ganar').style.display = 'block';
+}
+
+function perder() {
+    document.getElementById('perderf').style.display = 'block';
+}
+
+var myGamePiece;
+
+function startGame() {
+    myGamePiece = new component(100, 60, "qui1.png", 10, 120, "image");
+    myGameIntree = new component(110, 80, "tree.png", 300, 200, "image");
+    myGameBackground = new component(700, 580, "dfinal.jpeg", 0, 0, "image");
+    myGameLife = new component(149, 45, "barras.png", 545, 6, "image");
+    myGameArea.start();
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 700;
+        this.canvas.height = 580;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+        },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+        clearInterval(this.interval);
+    }
+}
+
+function component(width, height, color, x, y, type) {
+    this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+    }
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        if (type == "image") {
+            ctx.drawImage(this.image, 
+                this.x, 
+                this.y,
+                this.width, this.height);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;        
+    }
+}
+
+function updateGameArea() {
+    myGameArea.clear();
+    myGameBackground.newPos();
+    myGameBackground.update();
+    myGameLife.newPos();
+    myGameLife.update();
+    myGameIntree.newPos();
+    myGameIntree.update();
+    myGamePiece.newPos();
+    myGamePiece.update();
+}
+
+function move(dir) {
+    myGamePiece.image.src = "cam1.png";
+    if (dir == "up") {myGamePiece.speedY = -2.5; }
+    if (dir == "down") {myGamePiece.speedY = 2.5; }
+    if (dir == "right") {myGamePiece.speedX = 2.5; }
+}
+
+function moveL(dir) {
+    myGamePiece.image.src = "camL.png";
+    if (dir == "a") {myGamePiece.speedY = -2.5; }
+    if (dir == "down") {myGamePiece.speedY = 2.5; }
+    if (dir == "left") {myGamePiece.speedX = -2.5; }
+}
+function clearmove() {
+    myGamePiece.image.src = "qui1.png";
+    myGamePiece.speedX = 0; 
+    myGamePiece.speedY = 0;
+
+
+}
+
+function clearmoveL() {
+    myGamePiece.image.src = "quiL.png";
+    myGamePiece.speedX = 0; 
+    myGamePiece.speedY = 0;
+}
+
+
+function hit() {
+    myGamePiece.image.src = "golp1.png";
+}
+
+let score = 0;
+
+setInterval(() => {
+    score++;
+    document.getElementById("score").innerText = score;
+}, 1000)
+</script>
+<div id="scoreF">
+    <img src="scorefinal.png" height="30px" width="700px" alt="">
+    <div id="scoreC">
+        Puntaje actual: <span id="score">0</span>
+    </div>
+</div>  
+<div id="controles" style="text-align:center;width:480px;">
+    <BR></BR>
+  <br><button class="ifondo" onmousedown="move('up')" onmouseup="clearmove()" ontouchstart="move('up')">UP</button><br>
+  <button class="ifondo" onmousedown="moveL('left')" onmouseup="clearmoveL()" ontouchstart="move('left')">LEFT</button>
+  <button class="ifondo" onmousedown="move('right')" onmouseup="clearmove()" ontouchstart="move('right')">RIGHT</button><br>
+  <button class="ifondo" onmousedown="move('down')" onmouseup="clearmove()" ontouchstart="move('down')">DOWN</button> <br> <br>
+</div>
+</body>
+</html>

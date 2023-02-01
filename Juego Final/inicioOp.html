@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #FCCB8D;
+    margin-left: 27%;
+}
+
+
+#controles {
+    margin-left: 34%;
+}
+
+#bu {
+    position:absolute;
+    background: none;
+    top: 40%;
+    right: 40%;
+    border: none;
+}
+
+#bu1 {
+    position:absolute;
+    background: none;
+    top: 63%;
+    right: 43.5%;
+    border: none;
+}
+
+#bu2 {
+    position:absolute;
+    background: none;
+    top: 46%;
+    right: 50.5%;
+    border: none;
+}
+
+#bu3 {
+    position:absolute;
+    background: none;
+    top: 57%;
+    right: 47%;
+    border: none;
+}
+
+#img1 {
+    position:absolute;
+    background: none;
+    top: 57%;
+    right: 40%;
+    border: none;
+}
+
+#img2 {
+    position:absolute;
+    background: none;
+    top: 40%;
+    right: 47%;
+    border: none;
+}
+
+#inicioJu {
+    position:absolute;
+    margin-top: -38.1%;
+    margin-left: 26.8%;
+}
+
+#inicio {
+    position:absolute;
+    margin-top: -38.1%;
+    margin-left: 26.8%;
+}
+
+
+#bi {
+    position: absolute;
+    background: none;
+    border: none;
+    top: 85%;
+    left: 30%;
+}
+
+#ganar {
+    display: none;
+    position:absolute;
+    margin-top: -38.1%;
+    margin-left: 26.8%;
+}
+
+#perder {
+    display: none;
+    position:absolute;
+    margin-top: -38.1%;
+    margin-left: 26.8%;
+}
+
+.ifondo {
+    background: url('botonesf.png') center;
+}
+
+#scoreC {
+    margin-left: 79%;
+    margin-top: -4%;
+    text-align: center;
+    font-size: 80%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#scoreF {
+    position: absolute;
+    padding-left: 26.8%;
+    
+}
+
+#in {
+    position: absolute;
+    background: none;
+    border: none;
+    top: 25%;
+    left: 30%;
+}
+
+#in1 {
+    position: absolute;
+    background: none;
+    border: none;
+    top: 45%;
+    left: 30%;
+}
+
+#in2 {
+    position: absolute;
+    background: none;
+    border: none;
+    top: 63%;
+    left: 30%;
+}
+
+</style>
+</head>
+<body onclick="PlayAudio()" onload="startGame()">
+    <img id="img1" src="tree.png" alt="">
+    
+<img id="img2" src="tree.png" alt="">
+<button id="bu" type="button" onclick="ganar();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')"><img src="tree.png" alt=""></button>
+<button id="bu1" type="button" onclick="ocultar1();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu2" type="button" onclick="ocultar2();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')">.</button>
+<button id="bu3" type="button" onclick="perder();" onmousedown="hit('hit')" onmouseup="clearmove()" ontouchstart="hit('hit')"><img src="tree.png" alt=""></button>
+<div id="inicioJu">
+    <img src="inicioJu.png" width="700" height="580" alt="" onclick="playAudio()">
+    <a id="in" href="pruebajuevo.html">---------------------------------------------------------------------</a>
+    <a id="in1" href="niveles.html">---------------------------------------------------------------------</a>
+    <a id="in2" href="creditos.html">---------------------------------------------------------------------</a>
+</div>
+<div id="ganar">
+    <a href="pruebajuevo.html"><img src="ganar.png" alt=""></a>
+</div>
+
+<div id="perder">
+    <a href="pruebajuevo.html" ><img src="perder.png" alt=""></a>
+</div>
+
+<audio id="mu1" autoplay loop>
+    <source src="inicioOpc.mp3" type="audio/mpeg">
+</audio>
+<script>
+
+function PlayAudio() {
+    document.getElementById('mu1').play();
+}
+
+function ocultar1(){
+    document.getElementById('img1').style.display = 'none';
+}
+
+function ocultar2(){
+    document.getElementById('img2').style.display = 'none';
+}
+
+function empezar() {
+    document.getElementById('inicio').style.display = 'none';
+}
+
+function ganar() {
+    document.getElementById('ganar').style.display = 'block';
+}
+
+function perder() {
+    document.getElementById('perder').style.display = 'block';
+}
+
+var myGamePiece;
+
+function startGame() {
+    myGamePiece = new component(100, 60, "qui1.png", 10, 120, "image");
+    myGameIntree = new component(110, 80, "tree.png", 300, 200, "image");
+    myGameBackground = new component(700, 580, "d.jpeg", 0, 0, "image");
+    myGameLife = new component(149, 45, "barras.png", 545, 6, "image");
+    myGameArea.start();
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 700;
+        this.canvas.height = 580;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+        },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+        clearInterval(this.interval);
+    }
+}
+
+function component(width, height, color, x, y, type) {
+    this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+    }
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        if (type == "image") {
+            ctx.drawImage(this.image, 
+                this.x, 
+                this.y,
+                this.width, this.height);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;        
+    }
+}
+
+function updateGameArea() {
+    myGameArea.clear();
+    myGameBackground.newPos();
+    myGameBackground.update();
+    myGameLife.newPos();
+    myGameLife.update();
+    myGameIntree.newPos();
+    myGameIntree.update();
+    myGamePiece.newPos();
+    myGamePiece.update();
+}
+
+function move(dir) {
+    myGamePiece.image.src = "cam1.png";
+    if (dir == "up") {myGamePiece.speedY = -2.5; }
+    if (dir == "down") {myGamePiece.speedY = 2.5; }
+    if (dir == "right") {myGamePiece.speedX = 2.5; }
+}
+
+function moveL(dir) {
+    myGamePiece.image.src = "camL.png";
+    if (dir == "a") {myGamePiece.speedY = -2.5; }
+    if (dir == "down") {myGamePiece.speedY = 2.5; }
+    if (dir == "left") {myGamePiece.speedX = -2.5; }
+}
+function clearmove() {
+    myGamePiece.image.src = "qui1.png";
+    myGamePiece.speedX = 0; 
+    myGamePiece.speedY = 0;
+
+
+}
+
+function clearmoveL() {
+    myGamePiece.image.src = "quiL.png";
+    myGamePiece.speedX = 0; 
+    myGamePiece.speedY = 0;
+}
+
+
+function hit() {
+    myGamePiece.image.src = "golp1.png";
+}
+
+let score = 0;
+
+setInterval(() => {
+    score++;
+    document.getElementById("score").innerText = score;
+}, 1000)
+</script>
+</div>  
+</body>
+</html>
